@@ -45,43 +45,12 @@
 
 .part2 {
     width: 50%;
-    background-color: white;
-    border-radius: 0 0 0 10%;
-}
-.part2 form{
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    height: 100%;
-    width: 100%;
+    align-items: center;
+    border-radius: 0 0 0 10%;
+    background-color: white;
 }
-.part2 form label {
-    color: black;
-    margin: 10px 0;
-    display: block;
-    text-align: left; 
-    width: 80%;
-}
-
-.InputLabel {
-    display: flex;
-    flex-direction: column;
-    justify-items: left;
-}
-
 #loginpara{
-    margin-top: 30px;
     text-align: center;
-    font-size: 0.9rem;
-    color: #777;
-}
-
-#loginpara a {
-    color: #1976d2;
-    text-decoration: none;
-}
-
-#loginpara a:hover {
-    text-decoration: underline;
 }
