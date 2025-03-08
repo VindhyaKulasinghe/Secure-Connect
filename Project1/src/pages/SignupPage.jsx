@@ -3,6 +3,8 @@ import { Box, Typography, TextField, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import "./css/Signup.css";
 
+
+
 const SignupPage = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -73,18 +75,17 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="outer">
-      {/* Left Section: Background Image */}
+    <div className='signup'>
+      <div className="outer">
       <div className="inner1"></div>
 
-      {/* Right Section: Signup Form */}
       <div className="inner2">
         <Box
           sx={{
-            padding: "2rem",
-            borderRadius: "20px",
-            width: "80%",
-            maxWidth: "400px",
+            padding: '2rem',
+            borderRadius: '20px',
+            width: '80%',
+            maxWidth: '400px',
           }}
         >
           <Typography variant="h4" textAlign="center" mb={3}>
@@ -138,6 +139,7 @@ const SignupPage = () => {
           </Typography>
         </Box>
       </div>
+    </div>
     </div>
   );
 };

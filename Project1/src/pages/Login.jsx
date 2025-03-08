@@ -61,7 +61,7 @@ function Login() {
     return (
         <div className="OuterLogin">
             <div className="login">
-                <div className="part1">Part 1</div>
+                <div className="part1"></div>
                 <div className="part2">
                     <form onSubmit={handleSubmit}>
                         <h1 style={{ marginBottom: '40px' }}>Log In</h1>
@@ -69,7 +69,7 @@ function Login() {
                         <label htmlFor="username" style={{ marginBottom: '10px', display: 'block' }}>Email Or User Name</label>
                         <OutlinedInput
                             id="outlined-basic"
-                            sx={{ marginBottom: 2, width: '90%', borderRadius: '10px' }}
+                            sx={{ marginBottom: 2, width: '80%', borderRadius: '10px' }}
                             variant="outlined"
                             onChange={(e) => setUsername(e.target.value)}
                             required
@@ -77,7 +77,7 @@ function Login() {
                         />
 
                         <label htmlFor="password" style={{ marginBottom: '10px', display: 'block' }}>Password</label>
-                        <FormControl sx={{ marginBottom: 5, width: '90%' }} variant="outlined">
+                        <FormControl sx={{ marginBottom: 5, width: '80%' }} variant="outlined">
                             <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-password"
@@ -107,7 +107,7 @@ function Login() {
                             </div>
                         )}
 
-                        <Button type="submit" variant="contained" color="primary" sx={{ mt: 2, width: '90%', fontSize: '20px', borderRadius: '10px' }}>
+                        <Button type="submit" variant="contained" color="primary" sx={{ mt: 2, width: '80%', fontSize: '20px', borderRadius: '10px' }}>
                             Log In
                         </Button>
                         <p id="loginpara" style={{ marginTop: '20px' }}>
