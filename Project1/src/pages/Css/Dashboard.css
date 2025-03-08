@@ -1,0 +1,79 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url("https://img.freepik.com/free-photo/black-background-with-leaves-vegetation-texture_23-2149872529.jpg?t=st=1741425266~exp=1741428866~hmac=a33750af8145a4bd05ac615a5a19904de604ca121ffeeb0d6af994853ceae72f&w=1380");
+    background-size: cover;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+}
+
+.dashboard-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.greeting-card {
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.greeting-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.welcome-heading {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #4b4b4b;
+    margin-bottom: 15px;
+}
+
+.dashboard-description {
+    font-size: 1.2rem;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.logout-button {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #e04343;
+}
+
+.error-message {
+    color: #e04343;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 20px;
+    background-color: #f8d7da;
+    border-radius: 5px;
+    margin-top: 20px;
+}

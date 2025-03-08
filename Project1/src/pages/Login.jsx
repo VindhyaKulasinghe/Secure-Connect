@@ -8,19 +8,54 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleClickShowPassword = () => setShowPassword((prev) => !prev);
     const handleMouseDownPassword = (event) => event.preventDefault();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Logging in with:', { username, password });
+
+        // Basic validation (client-side)
+        if (!username || !password) {
+            setErrorMessage('Please enter both username and password.');
+            return;
+        }
+
+        // Send login request to FastAPI backend
+        try {
+            const response = await fetch('http://localhost:8000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                setErrorMessage(errorData.detail || 'Invalid username or password');
+            } else {
+                const data = await response.json();
+                setErrorMessage('');
+                
+                // Save username to localStorage on successful login
+                localStorage.setItem('username', username);
+
+                // Navigate to the dashboard
+                navigate(data.redirect_url);
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            setErrorMessage('An error occurred while logging in.');
+        }
     };
 
     return (
@@ -43,7 +78,7 @@ function Login() {
 
                         <label htmlFor="password" style={{ marginBottom: '10px', display: 'block' }}>Password</label>
                         <FormControl sx={{ marginBottom: 5, width: '90%' }} variant="outlined">
-                            <InputLabel htmlFor="outlined-adornment-password"></InputLabel> {/* Empty label */}
+                            <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-password"
                                 type={showPassword ? 'text' : 'password'}
@@ -64,6 +99,13 @@ function Login() {
                                 required
                             />
                         </FormControl>
+
+                        {/* Display error message if any */}
+                        {errorMessage && (
+                            <div style={{ color: 'red', marginBottom: '10px' }}>
+                                {errorMessage}
+                            </div>
+                        )}
 
                         <Button type="submit" variant="contained" color="primary" sx={{ mt: 2, width: '90%', fontSize: '20px', borderRadius: '10px' }}>
                             Log In
