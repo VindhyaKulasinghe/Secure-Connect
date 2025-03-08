@@ -55,9 +55,10 @@ async def login(request: LoginRequest):
     # Hash the entered password and compare it with the stored hash
     hashed_input_password = sha256(request.password.encode()).hexdigest()
 
-    if not user or user["password"] != hashed_input_password:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-
+    if not user :
+        raise HTTPException(status_code=401, detail="Invalid username user not found")
+    elif  user["password"] != hashed_input_password:
+        raise HTTPException(status_code=401, detail="Invalid Password")
     return {"message": "Login successful", "redirect_url": "/dashboard"}
 
 
