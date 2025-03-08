@@ -1,133 +1,124 @@
 import React, { useState } from 'react';
 import './Signup.css';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import IconButton from '@mui/material/IconButton';
+import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 
 function Signup() {
-    const [showPassword, setShowPassword] = useState(false);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [formData, setFormData] = useState({
+        username: "",
+        password: "",
+        confirmPassword: "",
+    });
 
-    const handleClickShowPassword = () => setShowPassword((prev) => !prev);
-    const handleMouseDownPassword = (event) => event.preventDefault();
+    const [errors, setErrors] = useState({});
 
-    // Username validation - Check if it's a valid email
-    const isValidEmail = (email) => {
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        return emailRegex.test(email);
+    // Function to validate inputs in real-time
+    const validate = (field, value) => {
+        let newErrors = { ...errors };
+
+        if (field === "username") {
+            if (value.length < 8) {
+                newErrors.username = "Username must be at least 8 characters long.";
+            } else {
+                newErrors.username = "";
+            }
+        }
+
+        if (field === "password") {
+            const hasUpperCase = /[A-Z]/.test(value);
+            const hasLowerCase = /[a-z]/.test(value);
+            const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+
+            if (!hasUpperCase || !hasLowerCase || !hasSpecialChar) {
+                newErrors.password =
+                    "Password must contain at least 1 uppercase, 1 lowercase, and 1 special character.";
+            } else {
+                newErrors.password = "";
+            }
+        }
+
+        if (field === "confirmPassword") {
+            if (value !== formData.password) {
+                newErrors.confirmPassword = "Passwords do not match.";
+            } else {
+                newErrors.confirmPassword = "";
+            }
+        }
+
+        setErrors(newErrors);
     };
 
-    // Password validation - Minimum length of 6 and must contain a number or special character
-    const isValidPassword = (password) => {
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d|[!@#$%^&*])([A-Za-z\d!@#$%^&*]){6,}$/;
-        return passwordRegex.test(password);
+    // Function to handle input changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+        validate(name, value);
     };
 
+    // Function to handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Username validation
-        if (!username) {
-            alert("Username or Email is required!");
-            return;
-        }
-        if (!isValidEmail(username)) {
-            alert("Please enter a valid email address.");
+        // Check if there are any errors before submitting
+        const hasErrors = Object.values(errors).some((error) => error !== "");
+        const hasEmptyFields = Object.values(formData).some((field) => field === "");
+
+        if (hasErrors || hasEmptyFields) {
+            alert("Please fix errors before signing up.");
             return;
         }
 
-        // Password validation
-        if (!password) {
-            alert("Password is required!");
-            return;
-        }
-        if (!isValidPassword(password)) {
-            alert("Password must be at least 6 characters long and contain a number or special character.");
-            return;
-        }
-
-        // Confirm password validation
-        if (password !== confirmPassword) {
-            alert("Passwords do not match!");
-            return;
-        }
-
-        console.log('Signing up with:', { username, password });
+        // If no errors, proceed with signup
+        alert("Signup Successful!");
     };
 
     return (
-        <div className="OuterSignup">
-            <div className="Signup">
-                <div className="part1"></div>
-                <div className="part2">
+        <div className="signup">
+            <div className="outer">
+                <div className="inner1"></div>
+                <div className="inner2">
                     <form onSubmit={handleSubmit}>
                         <h1 style={{ marginTop: '30px', marginBottom: '20px' }}>Sign Up</h1>
 
                         <label htmlFor="username" style={{ marginBottom: '10px', display: 'block' }}>Email Or User Name</label>
-                        <OutlinedInput
-                            id="outlined-basic"
-                            sx={{ marginBottom: 2, width: '90%', borderRadius: '10px' }}
-                            variant="outlined"
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                            placeholder='Enter your email or username'
+                        <TextField
+                            fullWidth
+                            label="Username"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            error={!!errors.username}
+                            helperText={errors.username}
+                            margin="normal"
                         />
 
                         <label htmlFor="password" style={{ marginBottom: '10px', display: 'block' }}>Password</label>
-                        <FormControl sx={{ marginBottom: 5, width: '90%' }} variant="outlined">
-                            <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-password"
-                                type={showPassword ? 'text' : 'password'}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                        >
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                sx={{ borderRadius: '10px' }}
-                                required
-                            />
-                        </FormControl>
+                        <TextField
+                            fullWidth
+                            label="Password"
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            error={!!errors.password}
+                            helperText={errors.password}
+                            margin="normal"
+                        />
 
                         <label htmlFor="confirmPassword" style={{ marginBottom: '10px', display: 'block' }}>Confirm Password</label>
-                        <FormControl sx={{ marginBottom: 5, width: '90%' }} variant="outlined">
-                            <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-password"
-                                type={showPassword ? 'text' : 'password'}
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                        >
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                sx={{ borderRadius: '10px' }}
-                                required
-                            />
-                        </FormControl>
+                        <TextField
+                            fullWidth
+                            label="ConfirmPassword"
+                            type="password"
+                            name="ConfirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            error={!!errors.password}
+                            helperText={errors.password}
+                            margin="normal"
+                        />
 
                         <Button type="submit" variant="contained" color="primary" sx={{ mt: 2, width: '90%', fontSize: '20px', borderRadius: '10px', marginTop: '5px' }}>
                             SIGN UP
