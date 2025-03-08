@@ -23,13 +23,11 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Basic validation (client-side)
         if (!username || !password) {
             setErrorMessage('Please enter both username and password.');
             return;
         }
 
-        // Send login request to FastAPI backend
         try {
             const response = await fetch('http://localhost:8000/login', {
                 method: 'POST',
@@ -46,10 +44,8 @@ function Login() {
                 const data = await response.json();
                 setErrorMessage('');
                 
-                // Save username to localStorage on successful login
                 localStorage.setItem('username', username);
 
-                // Navigate to the dashboard
                 navigate(data.redirect_url);
             }
         } catch (error) {
