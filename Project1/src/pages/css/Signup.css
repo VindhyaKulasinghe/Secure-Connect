@@ -1,0 +1,45 @@
+/* Ensure full height and center the outer div */
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;  /* Centers horizontally */
+    align-items: center;      /* Centers vertically */
+    background-color: aliceblue;
+}
+
+/* Outer container should be fully filled */
+.outer {
+    display: flex;
+    width: 80vw;  /* Adjust width as needed */
+    height: 80vh; /* Adjust height as needed */
+    max-width: 1000px; /* Prevents excessive stretching */
+    max-height: 700px; /* Keeps it from overflowing */
+    border-radius: 10px; /* Optional: rounded corners */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
+    overflow: hidden; /* Prevents content overflow */
+    background-color: rgb(12, 5, 2);
+}
+
+/* Both inner divs should fully fill the outer div */
+.inner1, .inner2 {
+    flex: 1; /* Makes them take up equal space */
+    height: 100%; /* Ensure they fully cover the height of .outer */
+}
+
+/* Left section (Background Image) */
+.inner1 {
+    background-image: url("https://i.etsystatic.com/42932105/r/il/2d3693/4883802193/il_794xN.4883802193_8s46.jpg");
+    background-size: cover;
+    background-position: center;
+
+}
+
+/* Right section (Signup Form) */
+.inner2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 0 10%; /* Optional: rounded corners */
+    background-color: white;
+}

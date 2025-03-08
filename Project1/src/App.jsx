@@ -1,18 +1,10 @@
-import './App.css'
-import { BrowserRouter,Routes,Route } from 'react-router-dom'
-import Login from './pages/Login'
-import signup2 from './pages/signup2'
+// Path: Secure-Connect/Project1/src/App.js
+
+import React from 'react';
+import SignupPage from './pages/SignupPage';
+
 function App() {
-  return (
-    <>
-     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login/>}/>
-        <Route path="/signup2" element={<signup2/>}/>
-      </Routes>
-     </BrowserRouter>
-    </>
-  )
+  return <SignupPage />;
 }
 
-export default App
+export default App;
