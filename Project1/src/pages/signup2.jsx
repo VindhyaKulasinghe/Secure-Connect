@@ -1,6 +1,7 @@
-function signup2() {
-  return (<><h1>Signup2</h1></>
-
+function Signup2() {
+  return (
+    <><h1>Signup2</h1></>
   );
 }
-export default signup2;
+
+export default Signup2;
