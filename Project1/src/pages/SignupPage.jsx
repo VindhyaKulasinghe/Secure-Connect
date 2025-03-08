@@ -2,20 +2,20 @@ import React from 'react';
 import { Box, Typography, TextField, Button } from '@mui/material';
 import './css/Signup.css';
 import { Link } from 'react-router-dom';
+
 const SignupPage = () => {
   return (
-    <div className="outer">
-      {/* Left Section: Background Image */}
+    <div className='signup'>
+      <div className="outer">
       <div className="inner1"></div>
 
-      {/* Right Section: Signup Form */}
       <div className="inner2">
         <Box
           sx={{
             padding: '2rem',
             borderRadius: '20px',
             width: '80%',
-            maxWidth: '400px', // Prevents it from stretching too much on large screens
+            maxWidth: '400px',
           }}
         >
           <Typography variant="h4" textAlign="center" mb={3}>
@@ -34,6 +34,7 @@ const SignupPage = () => {
           </Typography>
         </Box>
       </div>
+    </div>
     </div>
   );
 };
