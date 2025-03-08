@@ -1,9 +1,7 @@
-// Path: Secure-Connect/Project1/src/pages/SignupPage.jsx
-
 import React from 'react';
 import { Box, Typography, TextField, Button } from '@mui/material';
 import './css/Signup.css';
-
+import { Link } from 'react-router-dom';
 const SignupPage = () => {
   return (
     <div className="outer">
@@ -32,7 +30,7 @@ const SignupPage = () => {
             </Button>
           </form>
           <Typography textAlign="center" mt={2}>
-            Already have an account? Log in
+            Already have an account? <Link to="/">Log in</Link>
           </Typography>
         </Box>
       </div>
