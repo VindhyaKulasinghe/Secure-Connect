@@ -10,7 +10,7 @@ const SignupPage = () => {
     password: "",
     confirmPassword: "",
   });
-  
+
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -51,7 +51,7 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const hasErrors = Object.values(errors).some((error) => error !== "");
     const hasEmptyFields = Object.values(formData).some((field) => field === "");
     if (hasErrors || hasEmptyFields) {
@@ -73,7 +73,7 @@ const SignupPage = () => {
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.detail || "An error occurred during signup.");
-      
+
       setSuccessMessage("Signup successful! You can now log in.");
       setApiError("");
     } catch (error) {
@@ -146,7 +146,7 @@ const SignupPage = () => {
                 SIGN UP
               </Button>
             </form>
-            <Typography textAlign="center" mt={2}>Already have an account? <Link to="/">Log in</Link></Typography>
+            <Typography textAlign="center" mt={2}>Already have an account? <Link to="/">Log In</Link></Typography>
           </Box>
         </div>
       </div>
